@@ -24,7 +24,7 @@ module.exports = grammar({
     class_declaration: $ => seq(
       repeat($.modifier),
       'TROPA',
-      $.identifier,
+      field('name', $.identifier),
       '{',
       repeat($._member),
       '}'
@@ -32,12 +32,12 @@ module.exports = grammar({
 
     function_declaration: $ => seq(
       repeat($.modifier),
-      $.type,
-      $.identifier,
+      field('return_type', $.type),
+      field('name', $.identifier),
       '(',
       optional($.parameter_list),
       ')',
-      $.block
+      field('body', $.block)
     ),
 
     parameter_list: $ => seq(
@@ -46,8 +46,8 @@ module.exports = grammar({
     ),
 
     parameter: $ => seq(
-      $.type,
-      $.identifier
+      field('type', $.type),
+      field('name', $.identifier)
     ),
 
     modifier: $ => choice(
@@ -89,16 +89,16 @@ module.exports = grammar({
     ),
 
     variable_declaration: $ => seq(
-      $.type,
-      $.identifier,
-      optional(seq('RECEBA', $._expression)),
+      field('type', $.type),
+      field('name', $.identifier),
+      optional(seq('RECEBA', field('value', $._expression))),
       optional(';')
     ),
 
     assignment_statement: $ => seq(
-      $.identifier,
+      field('name', $.identifier),
       'RECEBA',
-      $._expression,
+      field('value', $._expression),
       optional(';')
     ),
 

@@ -1,4 +1,4 @@
-; Tree-sitter highlight queries for PuroSuco
+; PuroSuco Tree-sitter Highlight Queries
 
 (modifier) @keyword.modifier
 "TROPA" @keyword
@@ -23,6 +23,9 @@
   "FALA_TU"
   "BROTOU"
 ] @function.builtin
+
+(class_declaration
+  name: (identifier) @type.class)
 
 (function_declaration
   name: (identifier) @function)
